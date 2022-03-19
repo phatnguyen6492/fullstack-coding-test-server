@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ProductTypeService } from './product-type.service';
 import { ProductTypeController } from './product-type.controller';
 import { ProductType, ProductTypeSchema } from './schemas/product-type.schema';
-import { MongooseModule } from '@nestjs/mongoose';
+import { MongooseModule, getModelToken } from '@nestjs/mongoose';
 
 @Module({
   imports: [
@@ -11,6 +11,12 @@ import { MongooseModule } from '@nestjs/mongoose';
     ]),
   ],
   controllers: [ProductTypeController],
-  providers: [ProductTypeService],
+  providers: [
+    ProductTypeService,
+    {
+      provide: getModelToken(ProductType.name),
+      useValue: {},
+    },
+  ],
 })
 export class ProductTypeModule {}

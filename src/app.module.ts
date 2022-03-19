@@ -2,10 +2,13 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ProductModule } from './product/product.module';
-import { MongooseModule } from '@nestjs/mongoose';
+import {getModelToken, MongooseModule} from '@nestjs/mongoose';
 import {ConfigModule} from '@nestjs/config';
 import { ProductTypeModule } from './product-type/product-type.module';
 import { CustomerModule } from './customer/customer.module';
+import {ProductType} from "./product-type/schemas/product-type.schema";
+
+const mockProductTypeService = {};
 
 @Module({
   imports: [
@@ -17,9 +20,11 @@ import { CustomerModule } from './customer/customer.module';
     MongooseModule.forRoot('mongodb://localhost/nest'),
     // MongooseModule.forRoot('mongodb://mongodb/nest'),
     ProductTypeModule,
-    CustomerModule
+    CustomerModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+  ],
 })
 export class AppModule {}
