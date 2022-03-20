@@ -13,12 +13,11 @@ const mockProductTypeService = {};
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: `config.${process.env.NODE_ENV}`,
+      envFilePath: `config`,
       isGlobal: true,
     }),
     ProductModule,
-    MongooseModule.forRoot('mongodb://localhost/nest'),
-    // MongooseModule.forRoot('mongodb://mongodb/nest'),
+    MongooseModule.forRoot(process.env.MONGO),
     ProductTypeModule,
     CustomerModule,
   ],
