@@ -13,10 +13,6 @@ import {ProductType} from "../product-type/schemas/product-type.schema";
   controllers: [ProductController],
   providers: [
     ProductService,
-    {
-      provide: getModelToken(Product.name),
-      useValue: {},
-    },
   ],
 })
 export class ProductModule {}

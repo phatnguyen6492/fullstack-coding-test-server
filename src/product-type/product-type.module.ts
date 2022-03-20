@@ -13,10 +13,6 @@ import { MongooseModule, getModelToken } from '@nestjs/mongoose';
   controllers: [ProductTypeController],
   providers: [
     ProductTypeService,
-    {
-      provide: getModelToken(ProductType.name),
-      useValue: {},
-    },
   ],
 })
 export class ProductTypeModule {}
