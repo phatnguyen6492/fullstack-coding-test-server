@@ -3,7 +3,7 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Product, ProductDocument } from '../product/schemas/product.schema';
-import { Model } from 'mongoose';
+import { Model, Schema } from 'mongoose';
 import { QueryDto } from '../global/dto/query.dto';
 import { PaginateResponse } from '../global/interface/paginate.interface';
 
@@ -43,12 +43,17 @@ export class ProductService {
     };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} product`;
+  findOne(id: Schema.Types.ObjectId) {
+    return this.productModel
+      .findById(id)
+      .populate('product_type')
+      .populate('customer')
+      .exec();
   }
 
-  update(id: number, updateProductDto: UpdateProductDto) {
-    return `This action updates a #${id} product`;
+  async update(id: Schema.Types.ObjectId, updateProductDto: UpdateProductDto) {
+    await this.productModel.findByIdAndUpdate(id, updateProductDto, { new: true });
+    return this.findOne(id);
   }
 
   remove(id: number) {
